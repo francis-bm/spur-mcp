@@ -1,0 +1,30 @@
+.pe { display: flex; flex-direction: column; gap: 10px; padding: 12px; }
+.pe-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.pe-title { font-weight: 650; font-size: 15px; }
+.pe-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.pe-map { height: 260px; border-radius: var(--sp-radius); border: 1px solid var(--sp-border); overflow: hidden; background: var(--sp-surface); }
+.pe-map.hidden { display: none; }
+.fullscreen .pe-map { height: 46vh; }
+.pe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.pe-card { border: 1px solid var(--sp-border); border-radius: var(--sp-radius); overflow: hidden; background: var(--sp-bg); display: flex; flex-direction: column; transition: border-color .15s, box-shadow .15s; }
+.pe-card.active { border-color: var(--sp-accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--sp-accent) 30%, transparent); }
+.pe-photo { aspect-ratio: 16 / 10; background: var(--sp-surface) center / cover no-repeat; position: relative; }
+.pe-photo .chip { position: absolute; top: 8px; left: 8px; background: rgba(17,24,39,.75); color: #fff; border: 0; }
+.pe-body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.pe-price { font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
+.pe-addr { font-weight: 550; }
+.pe-city { color: var(--sp-muted); font-size: 13px; }
+.pe-facts { color: var(--sp-muted); font-size: 13px; }
+.pe-meta { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 2px; }
+.pe-buttons { display: flex; gap: 6px; margin-top: auto; padding-top: 8px; flex-wrap: wrap; }
+.pe-buttons button { flex: 1; padding: 6px 8px; font-size: 13px; }
+.pe-card.detail { flex-direction: row; }
+.pe-card.detail .pe-photo { aspect-ratio: auto; width: 42%; min-height: 200px; }
+@media (max-width: 520px) { .pe-card.detail { flex-direction: column; } .pe-card.detail .pe-photo { width: 100%; aspect-ratio: 16/10; } }
+.pe-more { text-align: center; }
+
+/* Price pins on the map */
+.pe-pin { background: var(--sp-bg); color: var(--sp-text); border: 1px solid var(--sp-border); border-radius: 999px; padding: 2px 7px; font: 600 12px/1.3 var(--sp-font); white-space: nowrap; box-shadow: 0 1px 3px rgba(0,0,0,.25); transform: translate(-50%, -50%); display: inline-block; }
+.pe-pin.active { background: var(--sp-accent); color: var(--sp-accent-text); border-color: var(--sp-accent); z-index: 1000; }
+.leaflet-div-icon { background: none; border: 0; }
+.leaflet-container { font-family: var(--sp-font); background: var(--sp-surface); }

@@ -1,0 +1,17 @@
+.iu { display: flex; flex-direction: column; gap: 12px; padding: 12px; }
+.iu-title { font-weight: 650; font-size: 15px; }
+.iu-purpose { margin-top: 2px; }
+.iu-drop { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 22px 16px; border: 2px dashed var(--sp-border); border-radius: var(--sp-radius); background: var(--sp-surface); text-align: center; cursor: pointer; }
+.iu-drop:hover, .iu-drop.over { border-color: var(--sp-accent); }
+.iu-drop.busy { cursor: progress; opacity: .7; }
+.iu-drop input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.iu-hint { font-size: 12px; }
+.iu-status { font-size: 13px; }
+.iu-status.error { color: var(--sp-danger); }
+.iu-list { display: flex; flex-direction: column; gap: 8px; }
+.iu-item { display: grid; grid-template-columns: 64px 1fr auto; gap: 10px; align-items: center; padding: 8px; border: 1px solid var(--sp-border); border-radius: 10px; }
+.iu-item img { width: 64px; height: 64px; object-fit: contain; border-radius: 6px; background: var(--sp-surface); }
+.iu-name { font-weight: 600; overflow-wrap: anywhere; }
+.iu-url { font-size: 12px; color: var(--sp-muted); overflow-wrap: anywhere; user-select: all; }
+.iu-ok { color: var(--sp-good); font-size: 12px; }
+@media (max-width: 420px) { .iu-item { grid-template-columns: 48px 1fr; } .iu-item img { width: 48px; height: 48px; } .iu-item button { grid-column: 1 / -1; } }

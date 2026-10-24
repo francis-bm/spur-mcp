@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.usespur/spur",
+  "title": "Spur",
+  "description": "Real estate leads, skip tracing, direct mail, SMS & email outreach, and marketing automations",
+  "version": "1.0.0",
+  "websiteUrl": "https://usespur.com",
+  "icons": [
+    {
+      "src": "https://app.usespur.com/branding/spur-icon.png",
+      "mimeType": "image/png",
+      "sizes": ["1024x1024"]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.usespur.com/mcp"
+    }
+  ]
+}

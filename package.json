@@ -1,0 +1,38 @@
+{
+  "name": "spur-mcp-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MCP server that connects Spur to Claude and ChatGPT, with MCP Apps widgets for property results, maps and postcard previews",
+  "type": "module",
+  "bin": {
+    "spur-mcp-server": "dist/index.js"
+  },
+  "scripts": {
+    "build:views": "node scripts/build-views.mjs",
+    "build": "tsc && tsc -p views && npm run build:views",
+    "start": "node dist/index.js",
+    "dev": "npm run build:views && tsx watch src/index.ts",
+    "test": "npm run build && tsx scripts/smoke.ts"
+  },
+  "engines": {
+    "node": ">=20.3"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/express": "^2.0.2",
+    "@modelcontextprotocol/ext-apps": "^2.0.3",
+    "@modelcontextprotocol/node": "^2.1.1",
+    "@modelcontextprotocol/server": "^2.3.1",
+    "express": "^5.3.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.3.1",
+    "@types/express": "^5.0.6",
+    "@types/leaflet": "^1.9.22",
+    "@types/node": "^22.19.1",
+    "esbuild": "^0.28.2",
+    "leaflet": "^1.9.4",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  }
+}
