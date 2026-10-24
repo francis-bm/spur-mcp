@@ -122,22 +122,6 @@ Explore it with `npx @modelcontextprotocol/inspector`, connecting to `http://loc
 }
 ```
 
-## Deploy on Vercel
-
-`api/index.js` exports the HTTP app as a Vercel function and `vercel.json` routes every path to it (`npm run build` runs first). Create a Vercel project with **Root Directory** `mcp`, then set:
-
-| Variable | Value |
-| --- | --- |
-| `SPUR_API_URL` | Production Spur backend, no `/api` suffix |
-| `MCP_PUBLIC_URL` | The custom domain, e.g. `https://mcp.spur.example` (OAuth issuer; keep it stable). Defaults to the project's production domain |
-| `MCP_TOKEN_SECRET` | 32+ random characters; rotating it signs every connector out |
-| `SPUR_APP_URL` | Spur web app URL |
-| `MAP_TILE_CONTACT` | Contact email for the tile provider |
-| `WIDGET_IMAGE_DOMAINS` | Optional: postcard artwork origins |
-| `SUPABASE_URL`, `SUPABASE_ANON_KEY` | Optional: enables Continue with Google (same values as the web app's `VITE_SUPABASE_*`) |
-
-`HOST` and `PORT` are not needed on Vercel. The deployment's `*.vercel.app` hostnames are accepted automatically; other hostnames go in `MCP_ALLOWED_HOSTS`. Tiles are sent with `s-maxage`, so Vercel's CDN serves repeat requests; the in-memory tile cache and per-IP limit apply per function instance. Functions stop after 60 seconds (`maxDuration` in `vercel.json`).
-
 ## Connect to Claude and ChatGPT
 
 Both need a public HTTPS URL. Deploy the server, then set `MCP_PUBLIC_URL` (for example `https://mcp.spur.example`), `HOST=0.0.0.0` and a real `MCP_TOKEN_SECRET`.
@@ -153,29 +137,6 @@ For the map, the widget loads tiles through this server's caching proxy at `/til
 - The map shows "© OpenStreetMap contributors" linked to the copyright page.
 
 OpenStreetMap's tile servers are donated, have no SLA, and may throttle or block heavy users without notice. The proxy logs once if the tile server answers 403 or 429. If that happens, or as traffic grows, set `MAP_TILE_URL` to a provider that serves OpenStreetMap tiles commercially (for example MapTiler, Stadia or Thunderforest) and update `MAP_TILE_ATTRIBUTION`. API keys in `MAP_TILE_URL` never reach the browser. On stdio there is no HTTP server, so the widget loads `MAP_TILE_URL` directly. If postcard artwork is hosted somewhere other than the Spur API origin (for example Supabase storage), add that origin to `WIDGET_IMAGE_DOMAINS` so the host's sandbox CSP lets the preview load it.
-
-## List in the MCP Registry
-
-[`server.json`](server.json) describes the production connector (`https://mcp.usespur.com/mcp`) for the [MCP Registry](https://registry.modelcontextprotocol.io) as `com.usespur/spur`. It is a remote-only listing: no package is published. The registry proves we own `usespur.com` through a DNS TXT record on the apex domain (`@` in Namecheap → Advanced DNS):
-
-```
-v=MCPv1; k=ecdsap384; p=<base64 public key>
-```
-
-The matching private key is kept outside the repo (never commit it). If you rotate it, delete the old TXT record, because a stale record breaks verification.
-
-To publish a new version, bump `version` in `server.json` and run:
-
-```bash
-brew install mcp-publisher
-mcp-publisher validate
-PRIVATE_KEY="$(openssl ec -in ~/.config/mcp-registry/usespur-key.pem -noout -text | grep -A4 'priv:' | tail -n +2 | tr -d ' :\n')"
-mcp-publisher login dns --algorithm ecdsap384 --domain usespur.com --private-key "$PRIVATE_KEY"
-mcp-publisher publish
-curl "https://registry.modelcontextprotocol.io/v0.1/servers?search=com.usespur/spur"
-```
-
-`description` is capped at 100 characters and is what registry search matches, so keep the key terms (real estate, skip tracing, direct mail, outreach, marketing automations) in it.
 
 ## Develop and test
 
