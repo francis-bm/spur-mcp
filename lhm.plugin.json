@@ -1,0 +1,4192 @@
+{
+  "author": "francis-bm",
+  "authorUrl": "https://github.com/francis-bm",
+  "cloudEndpoint": "https://mcp.usespur.com/mcp",
+  "description": "Real estate leads, skip tracing, direct mail, SMS & email outreach, and marketing automations",
+  "homepage": "https://usespur.com",
+  "identifier": "francis-bm-spur-mcp",
+  "name": "Spur",
+  "prompts": [
+    {
+      "name": "spur_deal_hunt",
+      "title": "Deal hunt",
+      "description": "Find, shortlist and save properties in a market",
+      "arguments": [
+        {
+          "name": "location",
+          "description": "City/state or ZIP, e.g. \"Dallas, TX\"",
+          "required": true
+        },
+        {
+          "name": "criteria",
+          "description": "e.g. \"3+ bed under $2,000/mo, owned 10+ years\"",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "spur_motivated_seller_research",
+      "title": "Motivated seller research",
+      "description": "Find owners likely to sell using listing events (price drops, back on market, stale, distress, FSBO) and owner signals",
+      "arguments": [
+        {
+          "name": "location",
+          "description": "City/state or ZIP, e.g. \"Houston, TX\"",
+          "required": true
+        },
+        {
+          "name": "criteria",
+          "description": "Extra constraints, e.g. \"single family under $400k built before 1990\"",
+          "required": false
+        },
+        {
+          "name": "days",
+          "description": "Lookback window in days (default 14)",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "spur_follow_up_hot_leads",
+      "title": "Follow up hot leads",
+      "description": "Triage SMS replies and draft follow-ups",
+      "arguments": []
+    },
+    {
+      "name": "spur_postcard_campaign",
+      "title": "Postcard campaign",
+      "description": "Pick or design a postcard, preview it with real owners, and mail it after approval",
+      "arguments": [
+        {
+          "name": "audience",
+          "description": "Who to mail, e.g. \"owners in my Austin Absentee list\" or \"all enriched owners in 78704\"",
+          "required": true
+        },
+        {
+          "name": "message",
+          "description": "What the card should say or the vibe you want",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "spur_letter_campaign",
+      "title": "Letter campaign",
+      "description": "Pick or design a letter (Top First Page or Insert Blank Page), preview it with real owners, and mail it after approval",
+      "arguments": [
+        {
+          "name": "audience",
+          "description": "Who to mail, e.g. \"absentee owners in 78704\"",
+          "required": true
+        },
+        {
+          "name": "message",
+          "description": "What the letter should say or the tone you want",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "spur_outreach_sequence",
+      "title": "Outreach sequence",
+      "description": "Design email and SMS templates, preview them, and assemble them into an outreach workflow",
+      "arguments": [
+        {
+          "name": "goal",
+          "description": "What the sequence is for, e.g. \"first touch to absentee owners offering a cash purchase\"",
+          "required": true
+        },
+        {
+          "name": "channels",
+          "description": "e.g. \"text, then email two days later, then a postcard\"",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "spur_weekly_review",
+      "title": "Weekly review",
+      "description": "Summarize the week: spend, campaigns, mail delivery and replies",
+      "arguments": []
+    }
+  ],
+  "resources": [
+    {
+      "name": "Spur property explorer",
+      "uri": "ui://spur/property-explorer-v1.html",
+      "description": "Map and cards for Spur property search results and saved properties",
+      "mimeType": "text/html;profile=mcp-app",
+      "_meta": {
+        "ui": {
+          "csp": {
+            "resourceDomains": [
+              "https://mcp.usespur.com",
+              "https://photos.zillowstatic.com",
+              "https://maps.zillowstatic.com"
+            ],
+            "connectDomains": []
+          },
+          "prefersBorder": true
+        }
+      }
+    },
+    {
+      "name": "Spur postcard preview",
+      "uri": "ui://spur/postcard-preview-v2.html",
+      "description": "Postcard (front/back) and letter page preview with merge data, cost estimate and a send button",
+      "mimeType": "text/html;profile=mcp-app",
+      "_meta": {
+        "ui": {
+          "csp": {
+            "resourceDomains": [
+              "https://spur-backend-pink.vercel.app",
+              "https://fonts.googleapis.com",
+              "https://fonts.gstatic.com",
+              "https://images.pexels.com",
+              "https://images.unsplash.com"
+            ],
+            "connectDomains": []
+          },
+          "prefersBorder": true
+        }
+      }
+    },
+    {
+      "name": "Spur email and SMS preview",
+      "uri": "ui://spur/message-preview-v1.html",
+      "description": "Email inbox preview (desktop/mobile, HTML and plain text) and SMS phone preview with segment count and design checks",
+      "mimeType": "text/html;profile=mcp-app",
+      "_meta": {
+        "ui": {
+          "csp": {
+            "resourceDomains": [
+              "https://spur-backend-pink.vercel.app",
+              "https://fonts.googleapis.com",
+              "https://fonts.gstatic.com",
+              "https://images.pexels.com",
+              "https://images.unsplash.com"
+            ],
+            "connectDomains": []
+          },
+          "prefersBorder": true
+        }
+      }
+    },
+    {
+      "name": "Spur billing",
+      "uri": "ui://spur/billing-v1.html",
+      "description": "Wallet balance with one-click top-ups, plan cards with Upgrade buttons, and Stripe checkout links",
+      "mimeType": "text/html;profile=mcp-app",
+      "_meta": {
+        "ui": {
+          "csp": {
+            "resourceDomains": [],
+            "connectDomains": []
+          },
+          "prefersBorder": true
+        }
+      }
+    },
+    {
+      "name": "Spur image upload",
+      "uri": "ui://spur/image-upload-v1.html",
+      "description": "Pick or drop an image from your device to save it to your Spur image library for postcards, letters and emails",
+      "mimeType": "text/html;profile=mcp-app",
+      "_meta": {
+        "ui": {
+          "csp": {
+            "resourceDomains": [],
+            "connectDomains": []
+          },
+          "prefersBorder": true
+        }
+      }
+    },
+    {
+      "name": "spur-merge-variables",
+      "title": "Merge fields",
+      "uri": "spur://merge-variables",
+      "description": "Every {{merge_field}} Spur fills in for postcards, letters, email and SMS",
+      "mimeType": "text/markdown"
+    },
+    {
+      "name": "spur-postcard-guide",
+      "title": "Postcard design guide",
+      "uri": "spur://postcard-design-guide",
+      "description": "Sizes, bleed, address-block safe zone and HTML rules for Spur postcards",
+      "mimeType": "text/markdown"
+    },
+    {
+      "name": "spur-letter-guide",
+      "title": "Letter design guide",
+      "uri": "spur://letter-design-guide",
+      "description": "Letter types (Top First Page, Insert Blank Page), address area and HTML rules for Spur letters",
+      "mimeType": "text/markdown"
+    },
+    {
+      "name": "spur-email-guide",
+      "title": "Email design guide",
+      "uri": "spur://email-design-guide",
+      "description": "Layout, client-safe HTML, preheader, footer compliance and the blank layout for Spur email templates",
+      "mimeType": "text/markdown"
+    }
+  ],
+  "tools": [
+    {
+      "name": "spur_search_properties",
+      "title": "Search properties",
+      "description": "Search live listings (Zillow data) in Spur with plain English and/or structured filters, including event filters. Results show as cards and a map.\n\nUses 1 property-search credit per call from the user's Spur plan, or 2 credits when the search makes more than 3 ZHomes calls (e.g. several event types, tax/sale-history events, or description-based filters). To check how a sentence will be interpreted before spending a credit, call spur_parse_search_query first.\n\nExamples:\n  - \"3 bed houses under $2,500/mo in Austin owned 10+ years\" -> location=\"Austin, TX\", listing_status=\"forRent\", home_type=\"singleFamily\", min_beds=3, max_price=2500, min_ownership_years=10\n  - \"duplexes for sale in 78704 built before 1980 with absentee owners\" -> location=\"78704\", listing_status=\"forSale\", home_type=\"multiFamily\", max_year_built=1979, only_absentee=true\n  - \"new pre-foreclosures or price drops of 10%+ in Dallas this week\" -> location=\"Dallas, TX\", events=[\"preforeclosure\",\"price_drop\"], event_within_days=7, event_min_change_pct=10\n  - \"motivated sellers in Houston: stale, back on market, or fired their agent\" -> location=\"Houston, TX\", events=[\"stale_listing\",\"back_on_market\",\"agent_to_fsbo\"]\n\nEvents (pass in `events`; a listing matches when ANY selected event fired, and is tagged with each):\n- Listing lifecycle: new_listing, coming_soon, coming_soon_active, price_drop, price_increase, pending, sold, back_on_market, delisted (automations only), open_house, rental_listed, rent_change, move_in_moved_up\n- Distress & motivation: preforeclosure, foreclosure, auction, bank_owned, distress_escalated, fsbo, agent_to_fsbo, stale_listing, new_construction\n- Valuation & tax: tax_assessment_posted, assessed_value_jump, tax_paid_dropped (weak), sale_recorded, zestimate_moved, equity_gap, price_below_assessed\nDirect events (price_drop, pending, sold, preforeclosure, fsbo, new_listing, …) work on the first search. Change events (price_increase, back_on_market, distress_escalated, agent_to_fsbo, rent_change, zestimate_moved, …) compare against what Spur saw on an earlier search of the same area, so the first search only records a baseline.\nMotivated-seller research usually combines price_drop, back_on_market, stale_listing, agent_to_fsbo and the distress stages.\n\nStructured filters always win over what Spur infers from `query`; use query for qualitative intent (condition, style, \"brick\", \"needs work\") that only listing descriptions can match. Unset filters are left to the query.\n\nFollow up with spur_save_properties to save listings the user likes (pass the cards' listing objects), or spur_create_search_automation to run the same filters on a schedule.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "description": "Free-text intent; Spur's AI turns it into filters and re-ranks by description",
+            "type": "string",
+            "maxLength": 1500
+          },
+          "location": {
+            "description": "City and state (\"Dallas, TX\") or ZIP code",
+            "type": "string",
+            "maxLength": 200
+          },
+          "listing_status": {
+            "description": "Defaults to forRent when omitted and the query doesn't imply one",
+            "type": "string",
+            "enum": [
+              "forRent",
+              "forSale",
+              "sold"
+            ]
+          },
+          "min_price": {
+            "description": "Minimum price (monthly rent for rentals), USD",
+            "type": "number",
+            "minimum": 0
+          },
+          "max_price": {
+            "description": "Maximum price (monthly rent for rentals), USD",
+            "type": "number",
+            "minimum": 0
+          },
+          "home_type": {
+            "description": "Zillow home type code",
+            "type": "string",
+            "enum": [
+              "singleFamily",
+              "condo,apartment",
+              "townhome",
+              "multiFamily",
+              "manufactured",
+              "land"
+            ]
+          },
+          "listing_type": {
+            "description": "Seller / listing kind; for catching NEW entries into a distress stage prefer events",
+            "type": "string",
+            "enum": [
+              "fsba",
+              "fsbo",
+              "newConstruction",
+              "foreclosure",
+              "preforeclosure",
+              "foreclosed",
+              "auction"
+            ]
+          },
+          "min_beds": {
+            "description": "Minimum bedrooms",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "max_beds": {
+            "description": "Maximum bedrooms",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "min_baths": {
+            "description": "Minimum bathrooms (half baths count as 0.5)",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "max_baths": {
+            "description": "Maximum bathrooms",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "min_sqft": {
+            "description": "Minimum living area in square feet",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "max_sqft": {
+            "description": "Maximum living area in square feet",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "min_lot_size": {
+            "description": "Square feet (1 acre = 43,560)",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "max_lot_size": {
+            "description": "Square feet",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "min_year_built": {
+            "description": "Built in or after this year",
+            "type": "integer",
+            "minimum": 1700,
+            "maximum": 2100
+          },
+          "max_year_built": {
+            "description": "Built in or before this year",
+            "type": "integer",
+            "minimum": 1700,
+            "maximum": 2100
+          },
+          "min_age": {
+            "description": "Years since built",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 400
+          },
+          "max_age": {
+            "description": "At most this many years since built",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 400
+          },
+          "days_posted": {
+            "description": "Only listings posted within this many days",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3650
+          },
+          "min_days_on_market": {
+            "description": "Listed at least this many days (higher suggests a motivated seller)",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "max_days_on_market": {
+            "description": "Listed at most this many days",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "keywords": {
+            "description": "Comma-separated listing keywords, e.g. \"pool, granite\"",
+            "type": "string",
+            "maxLength": 300
+          },
+          "has_pool": {
+            "description": "true = only listings with a pool",
+            "type": "boolean"
+          },
+          "has_garage": {
+            "description": "true = only listings with a garage",
+            "type": "boolean"
+          },
+          "has_view": {
+            "description": "true = only listings with any view (use views on live search for a specific kind)",
+            "type": "boolean"
+          },
+          "is_waterfront": {
+            "description": "true = only waterfront listings",
+            "type": "boolean"
+          },
+          "is_price_reduced": {
+            "description": "true = only listings whose asking price has been cut",
+            "type": "boolean"
+          },
+          "zip_list": {
+            "description": "Keep only these ZIPs; set location to the city that contains them",
+            "minItems": 1,
+            "maxItems": 50,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^\\d{5}$"
+            }
+          },
+          "neighborhoods": {
+            "description": "Neighborhood / area names matched against address and description",
+            "minItems": 1,
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            }
+          },
+          "center_lat": {
+            "description": "Radius search centre (with center_lng and radius_miles)",
+            "type": "number",
+            "minimum": -90,
+            "maximum": 90
+          },
+          "center_lng": {
+            "description": "Radius search centre longitude (with center_lat and radius_miles)",
+            "type": "number",
+            "minimum": -180,
+            "maximum": 180
+          },
+          "radius_miles": {
+            "description": "Keep only listings within this many miles of center_lat / center_lng",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 500
+          },
+          "min_zip": {
+            "description": "Lowest ZIP code in a numeric ZIP range (with max_zip); prefer zip_list for specific ZIPs",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99999
+          },
+          "max_zip": {
+            "description": "Highest ZIP code in a numeric ZIP range (with min_zip)",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99999
+          },
+          "only_absentee": {
+            "description": "Absentee-owned (owner mails elsewhere)",
+            "type": "boolean"
+          },
+          "only_vacant": {
+            "description": "Likely vacant (heuristic: description keywords + long days on market)",
+            "type": "boolean"
+          },
+          "only_pre_foreclosure": {
+            "description": "Distressed / pre-foreclosure (heuristic, includes description keywords)",
+            "type": "boolean"
+          },
+          "ownership_type": {
+            "description": "business = LLC / corp / trust owners (heuristic)",
+            "type": "string",
+            "enum": [
+              "individual",
+              "business",
+              "any"
+            ]
+          },
+          "min_equity": {
+            "description": "Estimated equity in USD (Zestimate or price minus assessed value; rough)",
+            "type": "number",
+            "minimum": 0
+          },
+          "min_ownership_years": {
+            "description": "Owner has held the property at least this long",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 150
+          },
+          "max_ownership_years": {
+            "description": "Owner has held the property at most this long",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 150
+          },
+          "events": {
+            "description": "Only listings where any of these events happened; see the tool description",
+            "minItems": 1,
+            "maxItems": 15,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "new_listing",
+                "coming_soon",
+                "coming_soon_active",
+                "price_drop",
+                "price_increase",
+                "pending",
+                "sold",
+                "back_on_market",
+                "delisted",
+                "open_house",
+                "rental_listed",
+                "rent_change",
+                "move_in_moved_up",
+                "preforeclosure",
+                "foreclosure",
+                "auction",
+                "bank_owned",
+                "distress_escalated",
+                "fsbo",
+                "agent_to_fsbo",
+                "stale_listing",
+                "new_construction",
+                "tax_assessment_posted",
+                "assessed_value_jump",
+                "tax_paid_dropped",
+                "sale_recorded",
+                "zestimate_moved",
+                "equity_gap",
+                "price_below_assessed"
+              ]
+            }
+          },
+          "event_within_days": {
+            "description": "Lookback window for events, in days (default 7)",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 365
+          },
+          "event_min_change_pct": {
+            "description": "Minimum % move for price / rent / Zestimate / assessment events",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "event_stale_days": {
+            "description": "Days on market that counts as stale (default 90)",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3650
+          },
+          "event_min_equity_gap_pct": {
+            "description": "Minimum % Zestimate above last sale price for equity_gap (default 30)",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "is_single_story": {
+            "description": "true = only single-story homes",
+            "type": "boolean"
+          },
+          "has_air_conditioning": {
+            "description": "true = only listings with air conditioning",
+            "type": "boolean"
+          },
+          "has_open_house": {
+            "description": "true = only listings with an upcoming open house",
+            "type": "boolean"
+          },
+          "has_3d_tour": {
+            "description": "true = only listings with a 3D virtual tour",
+            "type": "boolean"
+          },
+          "views": {
+            "description": "Only listings with any of these view types",
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "water",
+                "city",
+                "mountain",
+                "park",
+                "golfCourse"
+              ]
+            }
+          },
+          "limit": {
+            "default": 20,
+            "description": "Maximum results to show",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/property-explorer-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Searching properties…",
+        "openai/toolInvocation/invoked": "Properties found",
+        "ui/resourceUri": "ui://spur/property-explorer-v1.html"
+      }
+    },
+    {
+      "name": "spur_parse_search_query",
+      "title": "Preview search filters",
+      "description": "Show how Spur interprets a plain-English property search (filters and events) without running it. Free: uses no search credit.\n\nUse it to confirm intent before spending a credit, or to turn a vague request into explicit filters you can adjust. The returned arguments can be passed straight to spur_search_properties (keep the same location / status unless the user says otherwise). Exclusions (\"no condos\", \"not foreclosures\") are honoured by leaving those filters out.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1500,
+            "description": "The user's search in their own words"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_get_property",
+      "title": "Get property",
+      "description": "Show one property as a detailed card: a saved Spur property by property_id, or a live listing by zpid. Includes owner links and enrichment status for saved properties.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "property_id": {
+            "description": "Saved Spur property id",
+            "type": "string"
+          },
+          "zpid": {
+            "description": "Zillow property id from search results",
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/property-explorer-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Loading property…",
+        "openai/toolInvocation/invoked": "Property loaded",
+        "ui/resourceUri": "ui://spur/property-explorer-v1.html"
+      }
+    },
+    {
+      "name": "spur_save_properties",
+      "title": "Save properties",
+      "description": "Save live listings into the user's Spur properties (and optionally a property list). Pass listing objects from spur_search_properties structuredContent.cards[].listing. Already-saved listings are refreshed, not duplicated.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "listings": {
+            "minItems": 1,
+            "maxItems": 50,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "zpid": {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                "address": {
+                  "type": "object",
+                  "properties": {
+                    "streetAddress": {
+                      "type": "string"
+                    },
+                    "city": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string"
+                    },
+                    "zipcode": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "zpid",
+                "address"
+              ],
+              "additionalProperties": {},
+              "description": "A listing object exactly as returned in spur_search_properties structuredContent.cards[].listing"
+            },
+            "description": "Listing objects copied unchanged from spur_search_properties structuredContent.cards[].listing"
+          },
+          "list_id": {
+            "description": "Also add the saved properties to this property list (spur_list_property_lists)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "listings"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/property-explorer-v1.html",
+          "visibility": [
+            "model",
+            "app"
+          ]
+        },
+        "ui/resourceUri": "ui://spur/property-explorer-v1.html"
+      }
+    },
+    {
+      "name": "spur_list_saved_properties",
+      "title": "List saved properties",
+      "description": "List properties the user has saved in Spur, optionally filtered by city, state, list, or enrichment status. Shows cards and a map.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "description": "City name, e.g. \"Austin\"",
+            "type": "string"
+          },
+          "state": {
+            "description": "Two-letter state, e.g. \"TX\"",
+            "type": "string"
+          },
+          "list_id": {
+            "description": "Only properties in this property list",
+            "type": "string"
+          },
+          "enrichment_status": {
+            "description": "Skip-trace status of the property's owner (spur_enrich)",
+            "type": "string",
+            "enum": [
+              "pending",
+              "enriched",
+              "failed",
+              "partial"
+            ]
+          },
+          "min_price": {
+            "description": "Minimum price in USD (rent per month for rentals)",
+            "type": "number"
+          },
+          "max_price": {
+            "description": "Maximum price in USD (rent per month for rentals)",
+            "type": "number"
+          },
+          "limit": {
+            "default": 20,
+            "description": "Maximum number of items to return",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "default": 0,
+            "description": "Number of items to skip, for pagination",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/property-explorer-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Loading saved properties…",
+        "openai/toolInvocation/invoked": "Saved properties",
+        "ui/resourceUri": "ui://spur/property-explorer-v1.html"
+      }
+    },
+    {
+      "name": "spur_get_property_stats",
+      "title": "Property stats",
+      "description": "Totals for the user's saved properties: counts by status, enrichment progress and similar portfolio-level numbers.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_find_owners",
+      "title": "Find owners",
+      "description": "Find property owners in the user's Spur account by name, phone, email or mailing address text. Use spur_get_owner for full details and portfolio.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "description": "Text to match against name, email, phone or mailing address",
+            "type": "string",
+            "maxLength": 200
+          },
+          "enrichment_status": {
+            "description": "Only owners with this skip-trace status",
+            "type": "string",
+            "enum": [
+              "enriched",
+              "pending",
+              "failed",
+              "partial",
+              "not_enriched"
+            ]
+          },
+          "has_phone": {
+            "description": "Only owners with at least one phone number",
+            "type": "boolean"
+          },
+          "limit": {
+            "default": 20,
+            "description": "Maximum number of items to return",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "default": 0,
+            "description": "Number of items to skip, for pagination",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_get_owner",
+      "title": "Get owner",
+      "description": "Full owner record: contact details, mailing address, enrichment status and their property portfolio in Spur.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "owner_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Owner id (UUID from a Spur list/search tool)"
+          }
+        },
+        "required": [
+          "owner_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_enrich",
+      "title": "Skip trace / enrich",
+      "description": "Run skip tracing to find owners and their phone numbers, emails and mailing addresses.\n- property_ids: find the owner of saved properties (creates/links owner records)\n- owner_ids: refresh contact details for existing owners\n\nCosts enrichment credits per record (check spur_get_billing_summary). Ask the user to approve the count first, then call with confirm=true.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "property_ids": {
+            "description": "Saved property ids whose owners to skip-trace",
+            "maxItems": 100,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "owner_ids": {
+            "description": "Owner ids to skip-trace (from spur_find_owners)",
+            "maxItems": 100,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "confirm": {
+            "type": "boolean",
+            "const": true,
+            "description": "Set to true ONLY after the user explicitly approved this exact action in the conversation. Never assume approval."
+          }
+        },
+        "required": [
+          "confirm"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spur_list_property_lists",
+      "title": "List property lists",
+      "description": "All of the user's property lists with ids and sizes. Use the id with spur_list_saved_properties, spur_add_properties_to_list or outreach tools.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_create_property_list",
+      "title": "Create property list",
+      "description": "Create a property list, optionally seeding it with saved property ids.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "List name shown in Spur"
+          },
+          "description": {
+            "description": "Optional note about what the list is for",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "property_ids": {
+            "description": "Saved property ids to add right away",
+            "maxItems": 500,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_add_properties_to_list",
+      "title": "Add properties to list",
+      "description": "Add saved properties to an existing property list.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "list_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Property list id (UUID from a Spur list/search tool)"
+          },
+          "property_ids": {
+            "minItems": 1,
+            "maxItems": 500,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Saved property ids (from spur_list_saved_properties or spur_save_properties)"
+          }
+        },
+        "required": [
+          "list_id",
+          "property_ids"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_draft_message",
+      "title": "Draft outreach message",
+      "description": "Draft an email, SMS or direct-mail message with Spur's AI. Returns text only; nothing is sent. Pass owner_id/property_id to personalize with real owner and property data.\n\nUses 1 AI credit. Use {{merge_fields}} like {{owner_first_name}} and {{property_address}} to keep it reusable (see resource spur://merge-variables).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "email",
+              "sms",
+              "direct_mail"
+            ],
+            "description": "Which kind of message to draft"
+          },
+          "prompt": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 2000,
+            "description": "What to write, e.g. \"friendly first touch asking if they would sell, mention we close in cash\""
+          },
+          "owner_id": {
+            "description": "Owner to personalize for (from spur_find_owners)",
+            "type": "string"
+          },
+          "property_id": {
+            "description": "Saved property the message is about",
+            "type": "string"
+          }
+        },
+        "required": [
+          "channel",
+          "prompt"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_list_workflows",
+      "title": "List outreach workflows",
+      "description": "The user's multi-step outreach workflows (email/SMS/mail sequences) with status and enrollment counts.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_get_workflow",
+      "title": "Get outreach workflow",
+      "description": "One outreach workflow's steps in order (including reply/open branches built in the app), with the email, SMS or mail template each send step uses and its step_id.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "workflow_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Workflow id (UUID from a Spur list/search tool)"
+          }
+        },
+        "required": [
+          "workflow_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_create_workflow",
+      "title": "Create outreach workflow",
+      "description": "Create a multi-step outreach sequence from saved templates. It's saved as an inactive draft: nothing sends until it's activated (spur_set_workflow_active) and owners are enrolled.\n\nSend steps take a saved template: email/SMS from spur_list_message_templates (design new ones with spur_create_email_template / spur_create_sms_template), direct mail from the user's saved postcard or letter templates. Wait steps space them out. Reply/open/click branches can be added afterwards in Spur → Outreach.\n\nExample: \"text, wait 2 days, email, wait 5 days, postcard\" -> steps=[{type:\"send_sms\",template_id:…},{type:\"wait\",days:2},{type:\"send_email\",template_id:…},{type:\"wait\",days:5},{type:\"send_direct_mail\",template_id:…}]",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "Workflow name shown in Spur"
+          },
+          "description": {
+            "description": "Optional note about the workflow's goal",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "steps": {
+            "minItems": 1,
+            "maxItems": 30,
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "send_email"
+                    },
+                    "template_id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "description": "Email template id (UUID from a Spur list/search tool)"
+                    },
+                    "send_as_reply": {
+                      "description": "Reply in the previous email's thread",
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "template_id"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "send_sms"
+                    },
+                    "template_id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "description": "SMS template id (UUID from a Spur list/search tool)"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "template_id"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "send_direct_mail"
+                    },
+                    "template_id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64,
+                      "description": "Saved postcard or letter template (spur_list_postcard_templates / spur_list_letter_templates; copy gallery designs first) id (UUID from a Spur list/search tool)"
+                    },
+                    "return_address_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "template_id"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "wait"
+                    },
+                    "days": {
+                      "default": 0,
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 365
+                    },
+                    "hours": {
+                      "default": 0,
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 23
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "description": "Steps in run order: send_email / send_sms / send_direct_mail with a saved template_id, and wait steps (days, hours) between them"
+          }
+        },
+        "required": [
+          "name",
+          "steps"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_set_workflow_step_template",
+      "title": "Use template in workflow step",
+      "description": "Set which saved template a workflow's send step uses (send_email ← email template, send_sms ← SMS template, send_direct_mail ← postcard/letter template). Get step_ids from spur_get_workflow. If the workflow is active, enrolled owners get the new template from their next send.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "workflow_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Workflow id (UUID from a Spur list/search tool)"
+          },
+          "step_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "step_id from spur_get_workflow"
+          },
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Template id (UUID from a Spur list/search tool)"
+          }
+        },
+        "required": [
+          "workflow_id",
+          "step_id",
+          "template_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_set_workflow_active",
+      "title": "Activate or pause workflow",
+      "description": "Activate a workflow (enrolled owners start receiving its emails, texts and mail on schedule, which uses credits) or pause it. Activating requires every send step to have a template and the user's explicit approval.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "workflow_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Workflow id (UUID from a Spur list/search tool)"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "true = activate (start sending), false = pause"
+          },
+          "confirm": {
+            "description": "Required (true) when activating, only after the user approved it",
+            "type": "boolean",
+            "const": true
+          }
+        },
+        "required": [
+          "workflow_id",
+          "active"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spur_enroll_owners_in_workflow",
+      "title": "Enroll owners in workflow",
+      "description": "Enroll owners in an outreach workflow. The workflow will start emailing/texting/mailing them on its schedule, which uses credits. Confirm the workflow name and owner count with the user first.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "workflow_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Workflow id (UUID from a Spur list/search tool)"
+          },
+          "owner_ids": {
+            "minItems": 1,
+            "maxItems": 500,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Owner ids to enroll (from spur_find_owners); owners without the needed contact details are skipped"
+          },
+          "confirm": {
+            "type": "boolean",
+            "const": true,
+            "description": "Set to true ONLY after the user explicitly approved this exact action in the conversation. Never assume approval."
+          }
+        },
+        "required": [
+          "workflow_id",
+          "owner_ids",
+          "confirm"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spur_send_sms",
+      "title": "Send SMS",
+      "description": "Text an owner from the user's Spur number. Show the user the exact message and recipient and get approval before calling with confirm=true. Costs 1 SMS credit.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "owner_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Owner id (UUID from a Spur list/search tool)"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1600,
+            "description": "Exact SMS text the user approved"
+          },
+          "confirm": {
+            "type": "boolean",
+            "const": true,
+            "description": "Set to true ONLY after the user explicitly approved this exact action in the conversation. Never assume approval."
+          }
+        },
+        "required": [
+          "owner_id",
+          "message",
+          "confirm"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spur_list_sms_conversations",
+      "title": "SMS inbox",
+      "description": "SMS conversations with owners, newest first, with unread counts and the last message. Good for triaging replies (hot leads, not interested, wrong number).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "unread_only": {
+            "default": false,
+            "description": "true = only conversations with unread replies",
+            "type": "boolean"
+          },
+          "limit": {
+            "default": 25,
+            "description": "Maximum conversations to return",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_get_sms_conversation",
+      "title": "SMS thread",
+      "description": "The full SMS thread with one owner, oldest first.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "owner_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Owner id (UUID from a Spur list/search tool)"
+          }
+        },
+        "required": [
+          "owner_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_get_outreach_report",
+      "title": "Outreach report",
+      "description": "Outreach performance (sent, delivered, opened, replied, by channel) for all workflows or one, over an optional date range.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "workflow_id": {
+            "description": "Report on one workflow only; omit for all workflows",
+            "type": "string"
+          },
+          "date_from": {
+            "description": "ISO date, e.g. 2026-10-01",
+            "type": "string"
+          },
+          "date_to": {
+            "description": "ISO date",
+            "type": "string"
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_list_message_templates",
+      "title": "List email and SMS templates",
+      "description": "The user's saved email and SMS templates. These are what outreach workflow send_email / send_sms steps use.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "description": "Only email or only SMS templates; omit for both",
+            "type": "string",
+            "enum": [
+              "email",
+              "sms"
+            ]
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_get_message_template",
+      "title": "Get email or SMS template",
+      "description": "Fetch an email template's subject, HTML and plain text, or an SMS template's text, for reading or editing. For small changes prefer the update tool's replacements over resending everything.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Email or SMS template id (UUID from a Spur list/search tool)"
+          }
+        },
+        "required": [
+          "template_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_preview_message_template",
+      "title": "Preview email or SMS template",
+      "description": "Show a saved email (inbox view, desktop and mobile) or SMS (phone view, segment count) rendered with sample data or a real owner's data, plus design checks. Changes nothing.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Email or SMS template id (UUID from a Spur list/search tool)"
+          },
+          "owner_id": {
+            "description": "Preview with this owner's real data (spur_find_owners) instead of sample data",
+            "type": "string"
+          }
+        },
+        "required": [
+          "template_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/message-preview-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Rendering preview…",
+        "openai/toolInvocation/invoked": "Preview",
+        "ui/resourceUri": "ui://spur/message-preview-v1.html"
+      }
+    },
+    {
+      "name": "spur_preview_message_draft",
+      "title": "Preview unsaved email or SMS",
+      "description": "Preview email HTML or SMS text before saving it: renders it with sample or real owner data and runs the design checks. Nothing is saved; iterate here, then save with spur_create_email_template / spur_create_sms_template.\n\nEmail HTML guidance (see spur://email-design-guide): full HTML document, table-based layout 600px wide, inline styles on elements (a small <style> block in <head> is fine for resets/media queries), web-safe font stacks, no JavaScript, no forms, no external CSS. Images as absolute https URLs with alt text and width attributes. The user's own images (logo, headshot, property photos): spur_list_images gives their URLs; if they want to use an image they have, call spur_upload_image (or spur_save_image for a link) and use the saved URL. Use PNG or JPG in emails, not SVG. A hidden preheader <div style=\"display:none\"> right after <body> sets the inbox snippet. Include an opt-out line (\"Reply STOP\" or an unsubscribe link) and the sender's postal address in the footer. Keep it under 50,000 characters. Use merge fields like {{owner_first_name}}, {{property_address}}, {{your_name}}, {{your_phone}}, {{company_name}} (see spur://merge-variables). The plain-text version is generated from the HTML unless you pass text_body.\n\nSMS guidance: plain text, ideally one segment (160 GSM characters, or 70 if it uses emoji or other non-GSM characters; longer messages are billed per segment). Identify yourself, keep it conversational, and include opt-out wording (\"Reply STOP to opt out\") on first-touch messages. Links in texts from unverified numbers can be blocked, so give link-free fallback_body text when the body has a URL. Use merge fields like {{owner_first_name}}, {{property_address}}, {{your_name}} (see spur://merge-variables).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "email",
+              "sms"
+            ],
+            "description": "Whether the draft is an email or an SMS"
+          },
+          "subject": {
+            "description": "Email subject",
+            "type": "string",
+            "maxLength": 500
+          },
+          "html": {
+            "description": "Email HTML",
+            "type": "string",
+            "maxLength": 200000
+          },
+          "text": {
+            "description": "SMS text, or the email's plain-text version",
+            "type": "string",
+            "maxLength": 10000
+          },
+          "fallback_body": {
+            "description": "SMS only: link-free text sent if links are blocked",
+            "type": "string",
+            "maxLength": 1600
+          },
+          "owner_id": {
+            "description": "Preview with this owner's real data (spur_find_owners) instead of sample data",
+            "type": "string"
+          }
+        },
+        "required": [
+          "channel"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/message-preview-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Rendering preview…",
+        "openai/toolInvocation/invoked": "Draft preview",
+        "ui/resourceUri": "ui://spur/message-preview-v1.html"
+      }
+    },
+    {
+      "name": "spur_create_email_template",
+      "title": "Create email template",
+      "description": "Save a new email template and show its inbox preview. Ways to start:\n- From blank: start_from_blank=true gives a tested 600px responsive layout with greeting, signature and a compliant footer; pass html to replace it.\n- Redesign: base_template_id copies one of the user's email templates.\n- From scratch: pass html (or only text_body for a plain-text email).\nThe saved template can then be used by outreach workflows (spur_create_workflow / spur_set_workflow_step_template).\n\nEmail HTML guidance (see spur://email-design-guide): full HTML document, table-based layout 600px wide, inline styles on elements (a small <style> block in <head> is fine for resets/media queries), web-safe font stacks, no JavaScript, no forms, no external CSS. Images as absolute https URLs with alt text and width attributes. The user's own images (logo, headshot, property photos): spur_list_images gives their URLs; if they want to use an image they have, call spur_upload_image (or spur_save_image for a link) and use the saved URL. Use PNG or JPG in emails, not SVG. A hidden preheader <div style=\"display:none\"> right after <body> sets the inbox snippet. Include an opt-out line (\"Reply STOP\" or an unsubscribe link) and the sender's postal address in the footer. Keep it under 50,000 characters. Use merge fields like {{owner_first_name}}, {{property_address}}, {{your_name}}, {{your_phone}}, {{company_name}} (see spur://merge-variables). The plain-text version is generated from the HTML unless you pass text_body.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "Template name shown in Spur"
+          },
+          "subject": {
+            "description": "Required unless copying a template",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "start_from_blank": {
+            "description": "true = start from Spur's responsive, compliant blank email layout",
+            "type": "boolean"
+          },
+          "base_template_id": {
+            "description": "Copy this email template as the starting point",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "html": {
+            "description": "Full email HTML; merge fields like {{owner_first_name}} are filled per recipient",
+            "type": "string",
+            "maxLength": 50000
+          },
+          "text_body": {
+            "description": "Plain-text version; generated from the HTML when omitted",
+            "type": "string",
+            "maxLength": 10000
+          },
+          "description": {
+            "description": "Internal note about the template; never sent to owners",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "is_default": {
+            "description": "Make this the user's default email template",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/message-preview-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Saving email template…",
+        "openai/toolInvocation/invoked": "Email template saved",
+        "ui/resourceUri": "ui://spur/message-preview-v1.html"
+      }
+    },
+    {
+      "name": "spur_update_email_template",
+      "title": "Edit email template",
+      "description": "Edit one of the user's email templates and show the updated inbox preview. For tweaks pass replacements (exact find → replace in \"html\", \"subject\" or \"text\"); to redesign pass full html. When the HTML changes, the plain-text version is regenerated unless it was hand-written or you pass text_body. Workflows using this template send the new version from their next step.\n\nExample: replacements=[{target:\"html\", find:\"<p style=\\\"margin:0 0 16px;\\\"></p>\", replace:\"<p style=\\\"margin:0 0 16px;\\\">I'd like to make a cash offer on {{property_address}}.</p>\"}]\n\nEmail HTML guidance (see spur://email-design-guide): full HTML document, table-based layout 600px wide, inline styles on elements (a small <style> block in <head> is fine for resets/media queries), web-safe font stacks, no JavaScript, no forms, no external CSS. Images as absolute https URLs with alt text and width attributes. The user's own images (logo, headshot, property photos): spur_list_images gives their URLs; if they want to use an image they have, call spur_upload_image (or spur_save_image for a link) and use the saved URL. Use PNG or JPG in emails, not SVG. A hidden preheader <div style=\"display:none\"> right after <body> sets the inbox snippet. Include an opt-out line (\"Reply STOP\" or an unsubscribe link) and the sender's postal address in the footer. Keep it under 50,000 characters. Use merge fields like {{owner_first_name}}, {{property_address}}, {{your_name}}, {{your_phone}}, {{company_name}} (see spur://merge-variables). The plain-text version is generated from the HTML unless you pass text_body.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Email or SMS template id (UUID from a Spur list/search tool)"
+          },
+          "name": {
+            "description": "New template name",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "subject": {
+            "description": "New subject line",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "html": {
+            "description": "Full replacement HTML",
+            "type": "string",
+            "maxLength": 50000
+          },
+          "text_body": {
+            "description": "Full replacement plain-text version",
+            "type": "string",
+            "maxLength": 10000
+          },
+          "description": {
+            "description": "Internal note about the template; never sent to owners",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "is_default": {
+            "description": "true = make this the user's default template for its channel",
+            "type": "boolean"
+          },
+          "replacements": {
+            "description": "Small edits applied in order instead of resending the full content",
+            "maxItems": 30,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "target": {
+                  "type": "string",
+                  "enum": [
+                    "html",
+                    "subject",
+                    "text"
+                  ],
+                  "description": "Which part to edit"
+                },
+                "find": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Exact text that occurs once in that part"
+                },
+                "replace": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "target",
+                "find",
+                "replace"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "template_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/message-preview-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Updating email template…",
+        "openai/toolInvocation/invoked": "Email template updated",
+        "ui/resourceUri": "ui://spur/message-preview-v1.html"
+      }
+    },
+    {
+      "name": "spur_create_sms_template",
+      "title": "Create SMS template",
+      "description": "Save a new SMS template and show its phone preview with segment count and checks. The saved template can then be used by outreach workflows (spur_create_workflow / spur_set_workflow_step_template).\n\nSMS guidance: plain text, ideally one segment (160 GSM characters, or 70 if it uses emoji or other non-GSM characters; longer messages are billed per segment). Identify yourself, keep it conversational, and include opt-out wording (\"Reply STOP to opt out\") on first-touch messages. Links in texts from unverified numbers can be blocked, so give link-free fallback_body text when the body has a URL. Use merge fields like {{owner_first_name}}, {{property_address}}, {{your_name}} (see spur://merge-variables).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "Template name shown in Spur"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1600,
+            "description": "SMS body; merge fields like {{owner_first_name}} are filled per recipient"
+          },
+          "fallback_body": {
+            "description": "Link-free version sent if a link gets the text blocked",
+            "type": "string",
+            "maxLength": 1600
+          },
+          "description": {
+            "description": "Internal note about the template; never sent to owners",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "is_default": {
+            "description": "true = make this the user's default template for its channel",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "text"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/message-preview-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Saving SMS template…",
+        "openai/toolInvocation/invoked": "SMS template saved",
+        "ui/resourceUri": "ui://spur/message-preview-v1.html"
+      }
+    },
+    {
+      "name": "spur_update_sms_template",
+      "title": "Edit SMS template",
+      "description": "Edit one of the user's SMS templates and show the updated preview. Pass full text / fallback_body, or replacements (exact find → replace in \"text\" or \"fallback\"). Pass fallback_body=\"\" to remove the fallback.\n\nSMS guidance: plain text, ideally one segment (160 GSM characters, or 70 if it uses emoji or other non-GSM characters; longer messages are billed per segment). Identify yourself, keep it conversational, and include opt-out wording (\"Reply STOP to opt out\") on first-touch messages. Links in texts from unverified numbers can be blocked, so give link-free fallback_body text when the body has a URL. Use merge fields like {{owner_first_name}}, {{property_address}}, {{your_name}} (see spur://merge-variables).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Email or SMS template id (UUID from a Spur list/search tool)"
+          },
+          "name": {
+            "description": "New template name",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "text": {
+            "description": "Full replacement SMS body",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1600
+          },
+          "fallback_body": {
+            "description": "Link-free text sent instead when links are blocked; \"\" removes it",
+            "type": "string",
+            "maxLength": 1600
+          },
+          "description": {
+            "description": "Internal note about the template; never sent to owners",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "is_default": {
+            "description": "true = make this the user's default template for its channel",
+            "type": "boolean"
+          },
+          "replacements": {
+            "description": "Small edits applied in order instead of resending the full content",
+            "maxItems": 30,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "target": {
+                  "type": "string",
+                  "enum": [
+                    "text",
+                    "fallback"
+                  ],
+                  "description": "Which part to edit"
+                },
+                "find": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Exact text that occurs once in that part"
+                },
+                "replace": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "target",
+                "find",
+                "replace"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "template_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/message-preview-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Updating SMS template…",
+        "openai/toolInvocation/invoked": "SMS template updated",
+        "ui/resourceUri": "ui://spur/message-preview-v1.html"
+      }
+    },
+    {
+      "name": "spur_delete_message_template",
+      "title": "Delete email or SMS template",
+      "description": "Delete one of the user's email or SMS templates. Workflow steps that use it will fail until they get another template, so check spur_list_workflows and confirm with the user first.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Email or SMS template id (UUID from a Spur list/search tool)"
+          },
+          "confirm": {
+            "type": "boolean",
+            "const": true,
+            "description": "Set to true ONLY after the user explicitly approved this exact action in the conversation. Never assume approval."
+          }
+        },
+        "required": [
+          "template_id",
+          "confirm"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_send_test_email",
+      "title": "Send test email to yourself",
+      "description": "Send an email template, filled with sample data (or one owner's data), to the user's own Spur account email from their email sender, to check it in a real inbox. Never goes to owners. Confirm with the user first.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Email or SMS template id (UUID from a Spur list/search tool)"
+          },
+          "owner_id": {
+            "description": "Preview with this owner's real data (spur_find_owners) instead of sample data",
+            "type": "string"
+          },
+          "sender_id": {
+            "description": "Email sender to send from; defaults to the user's default sender",
+            "type": "string"
+          },
+          "confirm": {
+            "type": "boolean",
+            "const": true,
+            "description": "Set to true ONLY after the user explicitly approved this exact action in the conversation. Never assume approval."
+          }
+        },
+        "required": [
+          "template_id",
+          "confirm"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spur_list_postcard_templates",
+      "title": "List postcard templates",
+      "description": "Postcard templates available to the user: their own (editable), Spur defaults, and Spur's built-in gallery. Copy a default or gallery design with spur_create_postcard_template base_template_id to redesign it, or start from blank with start_from_blank.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "description": "Only templates in this category, e.g. \"Just Sold\"",
+            "type": "string"
+          },
+          "size": {
+            "description": "Only templates designed for this size",
+            "type": "string",
+            "enum": [
+              "6x4",
+              "6x9",
+              "6x11"
+            ]
+          },
+          "include_gallery": {
+            "default": true,
+            "description": "Include Spur's built-in gallery designs",
+            "type": "boolean"
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_get_postcard_template",
+      "title": "Get postcard template HTML",
+      "description": "Fetch a postcard template's HTML for reading or editing. For small text changes prefer spur_update_postcard_template with replacements instead of resending whole HTML.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "Template id from spur_list_postcard_templates (a saved template's UUID or a Spur gallery id)"
+          },
+          "side": {
+            "default": "both",
+            "description": "Which side's HTML to return",
+            "type": "string",
+            "enum": [
+              "front",
+              "back",
+              "both"
+            ]
+          }
+        },
+        "required": [
+          "template_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_preview_postcard_template",
+      "title": "Preview postcard template",
+      "description": "Show any postcard template (yours, a Spur default or a gallery design) rendered with sample data, without changing anything.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "Template id from spur_list_postcard_templates (a saved template's UUID or a Spur gallery id)"
+          }
+        },
+        "required": [
+          "template_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/postcard-preview-v2.html"
+        },
+        "openai/toolInvocation/invoking": "Rendering postcard…",
+        "openai/toolInvocation/invoked": "Postcard preview",
+        "ui/resourceUri": "ui://spur/postcard-preview-v2.html"
+      }
+    },
+    {
+      "name": "spur_create_postcard_template",
+      "title": "Create postcard template",
+      "description": "Create a postcard template and show a preview. Three ways to start:\n- From blank: start_from_blank=true gives an empty, correctly sized canvas for the size (any side you pass HTML for replaces the blank side).\n- Redesign an existing template: base_template_id (yours, a Spur default or a gallery id) copies its HTML; override front_html/back_html/size as needed.\n- From scratch: pass both front_html and back_html.\n\nHTML guidance (see spur://postcard-design-guide): full HTML documents, inline <style>, no scripts. Fixed pixel sizing on html, body and a root .postcard at 300 px/in including 0.125\" bleed: 6x4 → 1875×1275, 6x9 → 2775×1875, 6x11 → 3375×1875. Keep text 0.25\" inside the edge. USPS clear zone on the back, measured from the bleed edges (Spur prints over it and covers anything there): postage 1.25\"×1.25\" in the top-right corner; address block 3.5\"×2\", 0.5\" from the right edge and 1.35\" from the top; USPS barcode strip 4.75\"×0.625\" along the bottom-right edge. Keep all text, logos, photos and QR codes out of it; a background color or texture under it is fine. The safe message area is left of the address block and above the barcode strip. Images as absolute https URLs. The user's own images (logo, headshot, property photos): spur_list_images gives their URLs; if they want to use an image they have, call spur_upload_image (or spur_save_image for a link) and use the saved URL. Use merge fields such as {{owner_first_name}}, {{property_address}}, {{your_name}}, {{your_phone}}, {{company_name}} (see spur://merge-variables). QR code box by default: unless the user says they don't want a QR code, every back you design includes an empty square <div class=\"qr-box\"> in the message area (≥ 0.75in, e.g. 225×225 px at 300 px/in) with a short call to action beside it (\"Scan to see your home's value\"). Never write QR markup or {{qrUrl}} yourself: after saving, call spur_add_postcard_qr_code and the tracked QR fills the box (pick the code with spur_list_qr_codes, or ask the user where scans should go and spur_create_qr_code). When resending full back_html, keep the qr-box and any <img data-spur-qr-merge…> inside it, or the QR is dropped.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "Template name shown in Spur"
+          },
+          "start_from_blank": {
+            "description": "Start from an empty canvas sized for `size`",
+            "type": "boolean"
+          },
+          "base_template_id": {
+            "description": "Copy this template's HTML and size as the starting point",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "front_html": {
+            "description": "Full front-side HTML",
+            "type": "string",
+            "maxLength": 500000
+          },
+          "back_html": {
+            "description": "Full back-side HTML; keep the address block area clear",
+            "type": "string",
+            "maxLength": 500000
+          },
+          "size": {
+            "type": "string",
+            "enum": [
+              "6x4",
+              "6x9",
+              "6x11"
+            ],
+            "description": "Postcard size: \"6x4\" (standard 4×6), \"6x9\" or \"6x11\""
+          },
+          "description": {
+            "description": "Internal note about the template; never printed",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "category": {
+            "description": "Category label, e.g. \"Just Sold\" or \"Market Update\"",
+            "type": "string",
+            "maxLength": 100
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/postcard-preview-v2.html"
+        },
+        "openai/toolInvocation/invoking": "Creating postcard…",
+        "openai/toolInvocation/invoked": "Postcard created",
+        "ui/resourceUri": "ui://spur/postcard-preview-v2.html"
+      }
+    },
+    {
+      "name": "spur_update_postcard_template",
+      "title": "Edit postcard template",
+      "description": "Edit one of the user's postcard templates and show the updated preview. For text tweaks pass replacements (exact find → replace on a side); to redesign, pass full front_html/back_html. Spur default and gallery templates can't be edited: copy them first with spur_create_postcard_template base_template_id.\n\nExample: change the headline -> replacements=[{side:\"front\", find:\"Just Sold!\", replace:\"Just Listed!\"}]\n\nHTML guidance (see spur://postcard-design-guide): full HTML documents, inline <style>, no scripts. Fixed pixel sizing on html, body and a root .postcard at 300 px/in including 0.125\" bleed: 6x4 → 1875×1275, 6x9 → 2775×1875, 6x11 → 3375×1875. Keep text 0.25\" inside the edge. USPS clear zone on the back, measured from the bleed edges (Spur prints over it and covers anything there): postage 1.25\"×1.25\" in the top-right corner; address block 3.5\"×2\", 0.5\" from the right edge and 1.35\" from the top; USPS barcode strip 4.75\"×0.625\" along the bottom-right edge. Keep all text, logos, photos and QR codes out of it; a background color or texture under it is fine. The safe message area is left of the address block and above the barcode strip. Images as absolute https URLs. The user's own images (logo, headshot, property photos): spur_list_images gives their URLs; if they want to use an image they have, call spur_upload_image (or spur_save_image for a link) and use the saved URL. Use merge fields such as {{owner_first_name}}, {{property_address}}, {{your_name}}, {{your_phone}}, {{company_name}} (see spur://merge-variables). QR code box by default: unless the user says they don't want a QR code, every back you design includes an empty square <div class=\"qr-box\"> in the message area (≥ 0.75in, e.g. 225×225 px at 300 px/in) with a short call to action beside it (\"Scan to see your home's value\"). Never write QR markup or {{qrUrl}} yourself: after saving, call spur_add_postcard_qr_code and the tracked QR fills the box (pick the code with spur_list_qr_codes, or ask the user where scans should go and spur_create_qr_code). When resending full back_html, keep the qr-box and any <img data-spur-qr-merge…> inside it, or the QR is dropped.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Template id (UUID from a Spur list/search tool)"
+          },
+          "name": {
+            "description": "New template name",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "description": {
+            "description": "Internal note about the template; never printed",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "category": {
+            "description": "Category label, e.g. \"Just Sold\" or \"Market Update\"",
+            "type": "string",
+            "maxLength": 100
+          },
+          "size": {
+            "type": "string",
+            "enum": [
+              "6x4",
+              "6x9",
+              "6x11"
+            ],
+            "description": "Postcard size: \"6x4\" (standard 4×6), \"6x9\" or \"6x11\""
+          },
+          "front_html": {
+            "description": "Full replacement front HTML",
+            "type": "string",
+            "maxLength": 500000
+          },
+          "back_html": {
+            "description": "Full replacement back HTML",
+            "type": "string",
+            "maxLength": 500000
+          },
+          "replacements": {
+            "description": "Small edits applied in order instead of resending the full content",
+            "maxItems": 30,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "side": {
+                  "type": "string",
+                  "enum": [
+                    "front",
+                    "back"
+                  ],
+                  "description": "Which side to edit"
+                },
+                "find": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Exact text that occurs once on that side"
+                },
+                "replace": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "side",
+                "find",
+                "replace"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "template_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/postcard-preview-v2.html"
+        },
+        "openai/toolInvocation/invoking": "Updating postcard…",
+        "openai/toolInvocation/invoked": "Postcard updated",
+        "ui/resourceUri": "ui://spur/postcard-preview-v2.html"
+      }
+    },
+    {
+      "name": "spur_add_postcard_qr_code",
+      "title": "Add QR code to postcard",
+      "description": "Put a tracked QR code on the back of one of the user's postcard templates and show the preview. Each mailed postcard gets its own code under the chosen QR code, so scans are tracked per recipient (spur_get_qr_code_activity).\n\nPlacement: position=\"auto\" fills the back's QR slot (an element with class qr-box, qr-code-box, qr-placeholder or qr-callout-box, as Spur's gallery designs have) and otherwise goes in the bottom-right of the message area, left of the address block and above the USPS barcode. Corners (top_left, top_right, bottom_left, bottom_right) and x_inches/y_inches place it in the message area; spots in the USPS clear zone are refused. Replaces any QR already on the card. If it lands on the message text, call again with another corner or move the text.\n\nCreate a QR code first with spur_create_qr_code if spur_list_qr_codes has none that fits.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Postcard template id (UUID from a Spur list/search tool)"
+          },
+          "qr_code_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "QR code id from spur_list_qr_codes or spur_create_qr_code"
+          },
+          "position": {
+            "default": "auto",
+            "description": "Where to place the code on the back; auto fills the design's qr-box",
+            "type": "string",
+            "enum": [
+              "auto",
+              "top_left",
+              "top_right",
+              "bottom_left",
+              "bottom_right"
+            ]
+          },
+          "size_inches": {
+            "default": 1,
+            "description": "Edge length when placed in the message area (not used for a slot). 0.75in or more scans reliably",
+            "type": "number",
+            "minimum": 0.6,
+            "maximum": 2
+          },
+          "x_inches": {
+            "description": "Left edge, inches from the bleed's left edge (with y_inches; overrides position)",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 12
+          },
+          "y_inches": {
+            "description": "Top edge, inches from the bleed's top edge (with x_inches)",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 7
+          }
+        },
+        "required": [
+          "template_id",
+          "qr_code_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/postcard-preview-v2.html"
+        },
+        "openai/toolInvocation/invoking": "Adding QR code…",
+        "openai/toolInvocation/invoked": "QR code added",
+        "ui/resourceUri": "ui://spur/postcard-preview-v2.html"
+      }
+    },
+    {
+      "name": "spur_remove_postcard_qr_code",
+      "title": "Remove QR code from postcard",
+      "description": "Remove the tracked QR code from one of the user's postcard templates (both sides) and show the preview. A QR slot from the design stays, empty.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Postcard template id (UUID from a Spur list/search tool)"
+          }
+        },
+        "required": [
+          "template_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/postcard-preview-v2.html"
+        },
+        "openai/toolInvocation/invoking": "Removing QR code…",
+        "openai/toolInvocation/invoked": "QR code removed",
+        "ui/resourceUri": "ui://spur/postcard-preview-v2.html"
+      }
+    },
+    {
+      "name": "spur_delete_postcard_template",
+      "title": "Delete postcard template",
+      "description": "Permanently delete one of the user's postcard templates. Spur defaults can't be deleted. Confirm with the user first.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Template id (UUID from a Spur list/search tool)"
+          },
+          "confirm": {
+            "type": "boolean",
+            "const": true,
+            "description": "Set to true ONLY after the user explicitly approved this exact action in the conversation. Never assume approval."
+          }
+        },
+        "required": [
+          "template_id",
+          "confirm"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_list_return_addresses",
+      "title": "List return addresses",
+      "description": "Return addresses saved for direct mail. The default one is used when a campaign doesn't specify one.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_preview_postcard_campaign",
+      "title": "Preview postcard mailing",
+      "description": "Required step before mailing postcards. Renders the postcard with the first recipient's real data, checks which owners have mailing addresses, estimates the cost from the user's plan, and returns a confirmation_token.\n\nShow the preview, then ask the user to approve. Only after they approve, call spur_send_postcards with the token (the widget's Send button does the same). The token expires in 30 minutes and only covers this exact template, recipient set, return address and size.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Postcard template id (UUID from a Spur list/search tool)"
+          },
+          "owner_ids": {
+            "minItems": 1,
+            "maxItems": 1000,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Owners to mail (spur_find_owners)"
+          },
+          "return_address_id": {
+            "description": "Defaults to the user's default return address",
+            "type": "string"
+          },
+          "size": {
+            "description": "Defaults to the template's size",
+            "type": "string",
+            "enum": [
+              "6x4",
+              "6x9",
+              "6x11"
+            ]
+          }
+        },
+        "required": [
+          "template_id",
+          "owner_ids"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/postcard-preview-v2.html"
+        },
+        "openai/toolInvocation/invoking": "Preparing postcard preview…",
+        "openai/toolInvocation/invoked": "Preview ready",
+        "ui/resourceUri": "ui://spur/postcard-preview-v2.html"
+      }
+    },
+    {
+      "name": "spur_send_postcards",
+      "title": "Send postcards",
+      "description": "Mail the postcards approved in spur_preview_postcard_campaign. Irreversible and charges the user's account. Requires the preview's confirmation_token and the user's explicit approval (confirm=true).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 20,
+            "description": "confirmation_token from spur_preview_postcard_campaign"
+          },
+          "confirm": {
+            "type": "boolean",
+            "const": true,
+            "description": "Set to true ONLY after the user explicitly approved this exact action in the conversation. Never assume approval."
+          }
+        },
+        "required": [
+          "confirmation_token",
+          "confirm"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/postcard-preview-v2.html",
+          "visibility": [
+            "model",
+            "app"
+          ]
+        },
+        "ui/resourceUri": "ui://spur/postcard-preview-v2.html"
+      }
+    },
+    {
+      "name": "spur_list_qr_codes",
+      "title": "List QR codes",
+      "description": "The user's tracked QR codes: destination URL, colors, and which of their postcard templates print each one. Put one on a postcard with spur_add_postcard_qr_code; see scans with spur_get_qr_code_activity.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_create_qr_code",
+      "title": "Create QR code",
+      "description": "Create a tracked QR code that sends scans to destination_url. Then add it to a postcard back with spur_add_postcard_qr_code; each mailed postcard gets its own code under it so scans are tracked per recipient.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "Label shown in Spur, e.g. 'Spring cash offer'"
+          },
+          "destination_url": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 2048,
+            "description": "Where a scan sends people, e.g. https://acme.example/offer (https:// is added if missing)"
+          },
+          "foreground_color": {
+            "type": "string",
+            "pattern": "^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$",
+            "description": "Hex color, e.g. #111827. Keep strong contrast with the background so phones can scan it"
+          },
+          "background_color": {
+            "type": "string",
+            "pattern": "^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$",
+            "description": "Hex color, e.g. #111827. Keep strong contrast with the background so phones can scan it"
+          }
+        },
+        "required": [
+          "name",
+          "destination_url"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_update_qr_code",
+      "title": "Edit QR code",
+      "description": "Rename a QR code, change where scans go, or change its colors. A new destination also applies to postcards already mailed with this code. Templates pick up new colors at send time.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "qr_code_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "QR code id from spur_list_qr_codes"
+          },
+          "name": {
+            "description": "New name for the QR code",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "destination_url": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 2048,
+            "description": "Where a scan sends people, e.g. https://acme.example/offer (https:// is added if missing)"
+          },
+          "foreground_color": {
+            "type": "string",
+            "pattern": "^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$",
+            "description": "Hex color, e.g. #111827. Keep strong contrast with the background so phones can scan it"
+          },
+          "background_color": {
+            "type": "string",
+            "pattern": "^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$",
+            "description": "Hex color, e.g. #111827. Keep strong contrast with the background so phones can scan it"
+          }
+        },
+        "required": [
+          "qr_code_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_delete_qr_code",
+      "title": "Delete QR code",
+      "description": "Permanently delete a QR code. Refused while one of the user's postcard templates still prints it: remove it from those first with spur_remove_postcard_qr_code. Postcards already mailed keep redirecting. Confirm with the user first.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "qr_code_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "QR code id from spur_list_qr_codes"
+          },
+          "confirm": {
+            "type": "boolean",
+            "const": true,
+            "description": "Set to true ONLY after the user explicitly approved this exact action in the conversation. Never assume approval."
+          }
+        },
+        "required": [
+          "qr_code_id",
+          "confirm"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_get_qr_code_activity",
+      "title": "QR code scans",
+      "description": "Scan activity for a QR code: totals, which mailed recipients (owners) scanned their postcard, and recent scans of the code itself. Use it to find warm leads from a postcard campaign.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "qr_code_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "QR code id from spur_list_qr_codes"
+          },
+          "limit": {
+            "default": 25,
+            "description": "Maximum recipients and scans to list",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "qr_code_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_list_images",
+      "title": "List images",
+      "description": "The user's saved images (logos, headshots, property photos) with their public URLs, newest first. Use it as <img src=\"…\"> (or a CSS background-image) in postcard, letter or email HTML. To add one, use spur_upload_image (from the user's device) or spur_save_image (from a URL).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "default": 30,
+            "description": "Maximum images to return",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_save_image",
+      "title": "Save image from URL",
+      "description": "Download an image from a public https URL (the user's website, a shared photo link) and save it to the user's Spur image library, so it stays available for printing and sending. Returns the saved image's URL. JPG, PNG, WebP, GIF or SVG, up to 20 MB. For a file on the user's device, use spur_upload_image instead. Only save images the user provided or asked for.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "maxLength": 4096,
+            "format": "uri",
+            "description": "Public https URL of the image"
+          },
+          "filename": {
+            "description": "Name to save it under, e.g. 'acme-logo'",
+            "type": "string",
+            "maxLength": 120
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spur_upload_image",
+      "title": "Upload image",
+      "description": "Show an upload box where the user picks or drops an image from their device (logo, headshot, property photo); it's saved to their Spur image library. Use this whenever the user wants to use their own image, including one they attached to the chat: attachments don't reach Spur, so ask them to drop it into the box. After uploading, the user can click \"Use this image\", or call spur_list_images to get the URL.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "purpose": {
+            "description": "What the image is for, shown to the user, e.g. 'Logo for the postcard back'",
+            "type": "string",
+            "maxLength": 120
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/image-upload-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Opening uploader…",
+        "openai/toolInvocation/invoked": "Upload ready",
+        "ui/resourceUri": "ui://spur/image-upload-v1.html"
+      }
+    },
+    {
+      "name": "spur_save_uploaded_image",
+      "title": "Save uploaded image",
+      "description": "Used by the upload widget to save the file the user picked. Not for the assistant.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string",
+            "maxLength": 255,
+            "description": "Original file name"
+          },
+          "data_base64": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 4194308,
+            "description": "File contents, base64-encoded"
+          }
+        },
+        "required": [
+          "filename",
+          "data_base64"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/image-upload-v1.html",
+          "visibility": [
+            "app"
+          ]
+        },
+        "ui/resourceUri": "ui://spur/image-upload-v1.html"
+      }
+    },
+    {
+      "name": "spur_delete_image",
+      "title": "Delete image",
+      "description": "Permanently delete one of the user's saved images. Refused while one of their postcard, letter or email templates still uses it, since those would show a broken image. Confirm with the user first.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "image_id from spur_list_images"
+          },
+          "confirm": {
+            "type": "boolean",
+            "const": true,
+            "description": "Set to true ONLY after the user explicitly approved this exact action in the conversation. Never assume approval."
+          }
+        },
+        "required": [
+          "image_id",
+          "confirm"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_list_letter_templates",
+      "title": "List letter templates",
+      "description": "Letter templates available to the user, with their letter type (Top First Page or Insert Blank Page): their own (editable), Spur defaults, and Spur's built-in gallery. Copy one with spur_create_letter_template base_template_id to redesign it, or start from blank with start_from_blank.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "description": "Only templates in this category",
+            "type": "string"
+          },
+          "letter_type": {
+            "description": "Only templates of this letter type",
+            "type": "string",
+            "enum": [
+              "top_first_page",
+              "insert_blank_page"
+            ]
+          },
+          "include_gallery": {
+            "default": true,
+            "description": "Include Spur's built-in gallery designs",
+            "type": "boolean"
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_get_letter_template",
+      "title": "Get letter template HTML",
+      "description": "Fetch a letter template's HTML for reading or editing. For small text changes prefer spur_update_letter_template with replacements instead of resending the whole HTML.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "Template id from spur_list_letter_templates (a saved template's UUID or a Spur gallery id)"
+          }
+        },
+        "required": [
+          "template_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_preview_letter_template",
+      "title": "Preview letter template",
+      "description": "Show any letter template (yours, a Spur default or a gallery design) rendered with sample data, without changing anything.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "Template id from spur_list_letter_templates (a saved template's UUID or a Spur gallery id)"
+          }
+        },
+        "required": [
+          "template_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/postcard-preview-v2.html"
+        },
+        "openai/toolInvocation/invoking": "Rendering letter…",
+        "openai/toolInvocation/invoked": "Letter preview",
+        "ui/resourceUri": "ui://spur/postcard-preview-v2.html"
+      }
+    },
+    {
+      "name": "spur_create_letter_template",
+      "title": "Create letter template",
+      "description": "Create a letter template and show a preview. Pick the letter type first (top_first_page or insert_blank_page); it decides where the address prints and how much of the page the design can use. Three ways to start:\n- From blank: start_from_blank=true gives an empty one-page letter laid out for the letter type.\n- Redesign an existing template: base_template_id (yours, a Spur default or a gallery id) copies its HTML and letter type; override html or letter_type as needed.\n- From scratch: pass html.\n\nHTML guidance (see spur://letter-design-guide): one US Letter page (8.5\"×11\"), full HTML document with inline <style>, \"@page { size: 8.5in 11in; margin: 0; }\", no scripts. One root <div class=\"letter\"> 8.5in wide; px/in units only (no vh/vw); no box-shadow, transforms or manual page breaks. top_first_page: leave the first 3.15in blank (an empty <div class=\"address-zone\" style=\"height:3.15in\">), body ≈ 3–4 short paragraphs. insert_blank_page: no address zone; letterhead up to 1.8in, body up to ~400 words. Images as absolute https URLs. The user's own images (logo, headshot, property photos): spur_list_images gives their URLs; if they want to use an image they have, call spur_upload_image (or spur_save_image for a link) and use the saved URL. Use merge fields such as {{owner_first_name}}, {{property_address}}, {{your_name}}, {{your_phone}}, {{company_name}} (see spur://merge-variables).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "Template name shown in Spur"
+          },
+          "letter_type": {
+            "description": "Defaults to the base template's type, else top_first_page",
+            "type": "string",
+            "enum": [
+              "top_first_page",
+              "insert_blank_page"
+            ]
+          },
+          "start_from_blank": {
+            "description": "Start from an empty page laid out for letter_type",
+            "type": "boolean"
+          },
+          "base_template_id": {
+            "description": "Copy this template's HTML and letter type as the starting point",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "html": {
+            "description": "Full letter HTML",
+            "type": "string",
+            "maxLength": 500000
+          },
+          "description": {
+            "description": "Internal note about the template; never printed",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "category": {
+            "description": "Category label, e.g. \"Seller Outreach\"",
+            "type": "string",
+            "maxLength": 100
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/postcard-preview-v2.html"
+        },
+        "openai/toolInvocation/invoking": "Creating letter…",
+        "openai/toolInvocation/invoked": "Letter created",
+        "ui/resourceUri": "ui://spur/postcard-preview-v2.html"
+      }
+    },
+    {
+      "name": "spur_update_letter_template",
+      "title": "Edit letter template",
+      "description": "Edit one of the user's letter templates and show the updated preview. For text tweaks pass replacements (exact find → replace); to redesign, pass full html. letter_type switches between top_first_page and insert_blank_page. Spur default and gallery templates can't be edited: copy them first with spur_create_letter_template base_template_id.\n\nHTML guidance (see spur://letter-design-guide): one US Letter page (8.5\"×11\"), full HTML document with inline <style>, \"@page { size: 8.5in 11in; margin: 0; }\", no scripts. One root <div class=\"letter\"> 8.5in wide; px/in units only (no vh/vw); no box-shadow, transforms or manual page breaks. top_first_page: leave the first 3.15in blank (an empty <div class=\"address-zone\" style=\"height:3.15in\">), body ≈ 3–4 short paragraphs. insert_blank_page: no address zone; letterhead up to 1.8in, body up to ~400 words. Images as absolute https URLs. The user's own images (logo, headshot, property photos): spur_list_images gives their URLs; if they want to use an image they have, call spur_upload_image (or spur_save_image for a link) and use the saved URL. Use merge fields such as {{owner_first_name}}, {{property_address}}, {{your_name}}, {{your_phone}}, {{company_name}} (see spur://merge-variables).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Template id (UUID from a Spur list/search tool)"
+          },
+          "name": {
+            "description": "New template name",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "description": {
+            "description": "Internal note about the template; never printed",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "category": {
+            "description": "Category label, e.g. \"Seller Outreach\"",
+            "type": "string",
+            "maxLength": 100
+          },
+          "letter_type": {
+            "type": "string",
+            "enum": [
+              "top_first_page",
+              "insert_blank_page"
+            ],
+            "description": "\"top_first_page\": the address prints in the top 3.15in of page 1 (shows through a #10 window envelope), so keep that band empty. \"insert_blank_page\": Spur adds a separate address page in front, so the letter can use the whole page (one extra page is billed)."
+          },
+          "html": {
+            "description": "Full replacement HTML",
+            "type": "string",
+            "maxLength": 500000
+          },
+          "replacements": {
+            "description": "Small edits applied in order instead of resending the full content",
+            "maxItems": 30,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "find": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Exact text that occurs once in the HTML"
+                },
+                "replace": {
+                  "type": "string",
+                  "description": "Text to put in its place"
+                }
+              },
+              "required": [
+                "find",
+                "replace"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "template_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/postcard-preview-v2.html"
+        },
+        "openai/toolInvocation/invoking": "Updating letter…",
+        "openai/toolInvocation/invoked": "Letter updated",
+        "ui/resourceUri": "ui://spur/postcard-preview-v2.html"
+      }
+    },
+    {
+      "name": "spur_delete_letter_template",
+      "title": "Delete letter template",
+      "description": "Permanently delete one of the user's letter templates. Spur defaults can't be deleted. Confirm with the user first.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Template id (UUID from a Spur list/search tool)"
+          },
+          "confirm": {
+            "type": "boolean",
+            "const": true,
+            "description": "Set to true ONLY after the user explicitly approved this exact action in the conversation. Never assume approval."
+          }
+        },
+        "required": [
+          "template_id",
+          "confirm"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_preview_letter_campaign",
+      "title": "Preview letter mailing",
+      "description": "Required step before mailing letters. Renders the letter with the first recipient's real data in its letter type's layout, checks which owners have mailing addresses, estimates the cost from the user's plan (Insert Blank Page letters include the extra address page), and returns a confirmation_token.\n\nShow the preview, then ask the user to approve. Only after they approve, call spur_send_letters with the token (the widget's Send button does the same). The token expires in 30 minutes and only covers this exact template, letter type, print options, recipient set and return address.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Letter template id (UUID from a Spur list/search tool)"
+          },
+          "owner_ids": {
+            "minItems": 1,
+            "maxItems": 1000,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Owners to mail (spur_find_owners)"
+          },
+          "return_address_id": {
+            "description": "Defaults to the user's default return address",
+            "type": "string"
+          },
+          "color": {
+            "default": true,
+            "description": "Print in color (false for black and white)",
+            "type": "boolean"
+          },
+          "double_sided": {
+            "default": false,
+            "description": "Print on both sides of each sheet",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "template_id",
+          "owner_ids"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/postcard-preview-v2.html"
+        },
+        "openai/toolInvocation/invoking": "Preparing letter preview…",
+        "openai/toolInvocation/invoked": "Preview ready",
+        "ui/resourceUri": "ui://spur/postcard-preview-v2.html"
+      }
+    },
+    {
+      "name": "spur_send_letters",
+      "title": "Send letters",
+      "description": "Mail the letters approved in spur_preview_letter_campaign. Irreversible and charges the user's account. Requires the preview's confirmation_token and the user's explicit approval (confirm=true).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 20,
+            "description": "confirmation_token from spur_preview_letter_campaign"
+          },
+          "confirm": {
+            "type": "boolean",
+            "const": true,
+            "description": "Set to true ONLY after the user explicitly approved this exact action in the conversation. Never assume approval."
+          }
+        },
+        "required": [
+          "confirmation_token",
+          "confirm"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/postcard-preview-v2.html",
+          "visibility": [
+            "model",
+            "app"
+          ]
+        },
+        "ui/resourceUri": "ui://spur/postcard-preview-v2.html"
+      }
+    },
+    {
+      "name": "spur_get_billing_summary",
+      "title": "Billing summary",
+      "description": "Plan, wallet balance, and this period's usage and remaining allowance per feature (searches, enrichment, SMS, postcards, letters, AI). Check this before large sends.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_list_campaigns",
+      "title": "List campaigns",
+      "description": "The user's campaigns (bulk email, SMS, direct mail, outreach) with status and recipient progress.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "Only campaigns with this status",
+            "type": "string",
+            "enum": [
+              "draft",
+              "active",
+              "paused",
+              "completed",
+              "cancelled"
+            ]
+          },
+          "limit": {
+            "default": 25,
+            "description": "Maximum campaigns to return",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "default": 0,
+            "description": "Campaigns to skip, for paging",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_get_campaign_stats",
+      "title": "Campaign stats",
+      "description": "Delivery and run statistics for one campaign.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "campaign_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Campaign id (UUID from a Spur list/search tool)"
+          }
+        },
+        "required": [
+          "campaign_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_get_direct_mail_analytics",
+      "title": "Direct mail analytics",
+      "description": "Letters and postcards sent, delivered, in transit and returned, plus USPS tracking totals and spend.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_show_billing_options",
+      "title": "Top up or upgrade",
+      "description": "Shows the user's wallet balance, one-click top-up amounts, auto-recharge status and every Spur plan with prices, in a widget with Pay/Upgrade buttons. Use whenever the user wants to add funds, buy credits, upgrade, change or compare plans, or a send failed for billing reasons.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/billing-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Loading billing options…",
+        "openai/toolInvocation/invoked": "Billing options ready"
+      }
+    },
+    {
+      "name": "spur_top_up_wallet",
+      "title": "Top up wallet",
+      "description": "Creates a Stripe checkout link to add funds to the user's Spur wallet (pays for postcards, letters, SMS, enrichment and other usage beyond the plan). No money moves until the user pays on Stripe, so no confirmation is needed. If the user didn't name an amount, suggest $25, $50 or $100, or enough to cover the send they're planning.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "amount_usd": {
+            "type": "number",
+            "minimum": 5,
+            "maximum": 10000,
+            "description": "Amount to add in US dollars (minimum $5)"
+          }
+        },
+        "required": [
+          "amount_usd"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/billing-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Creating Stripe checkout…",
+        "openai/toolInvocation/invoked": "Checkout ready"
+      }
+    },
+    {
+      "name": "spur_change_plan",
+      "title": "Upgrade or change plan",
+      "description": "Moves the user to another Spur plan (ids from spur_show_billing_options; usually agent, team or brokerage).\n- No paid subscription yet: returns a Stripe checkout link. No confirmation needed.\n- Already subscribed: switches the plan immediately and charges or credits the prorated difference to the saved card. Call once without confirm to get the exact change, ask the user to approve it, then call again with confirm=true.\n- Moving to the free Solo plan returns a billing-portal link where the user cancels the paid subscription.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40,
+            "description": "Target plan id, e.g. agent, team, brokerage"
+          },
+          "billing_interval": {
+            "default": "monthly",
+            "description": "annual is cheaper per month",
+            "type": "string",
+            "enum": [
+              "monthly",
+              "annual"
+            ]
+          },
+          "confirm": {
+            "description": "Only for users who already have a paid subscription: true ONLY after they approved the switch and the prorated charge in the conversation.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "plan_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/billing-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Preparing plan change…",
+        "openai/toolInvocation/invoked": "Plan change ready"
+      }
+    },
+    {
+      "name": "spur_check_payment",
+      "title": "Check payment",
+      "description": "After the user pays a Stripe checkout link from spur_top_up_wallet or spur_change_plan, confirms the payment went through and returns the new wallet balance and plan. Safe to call repeatedly.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "session_id returned with the checkout link (starts with cs_)"
+          }
+        },
+        "required": [
+          "session_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/billing-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Checking payment…",
+        "openai/toolInvocation/invoked": "Payment checked"
+      }
+    },
+    {
+      "name": "spur_manage_billing",
+      "title": "Billing portal",
+      "description": "Link to the user's Stripe billing portal: update the card on file, download invoices, change or cancel the subscription.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
+      },
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://spur/billing-v1.html"
+        },
+        "openai/toolInvocation/invoking": "Opening billing portal…",
+        "openai/toolInvocation/invoked": "Billing portal ready"
+      }
+    },
+    {
+      "name": "spur_set_auto_recharge",
+      "title": "Auto-recharge",
+      "description": "Turns wallet auto-recharge on or off. When on, Spur charges the saved card amount_usd whenever the balance drops below threshold_usd, so sends never fail for lack of funds. Needs a saved card (the first spur_top_up_wallet payment saves one). Turning it on needs the user's approval of the amount and threshold (confirm=true); turning it off doesn't.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "true = turn auto-recharge on, false = off"
+          },
+          "amount_usd": {
+            "description": "Amount added per recharge (required when enabling, minimum $5)",
+            "type": "number",
+            "minimum": 5,
+            "maximum": 10000
+          },
+          "threshold_usd": {
+            "description": "Recharge when the balance drops below this (required when enabling; lower than amount_usd)",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "confirm": {
+            "description": "Required to enable: true ONLY after the user approved automatic charges of this amount at this threshold.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "enabled"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spur_list_search_automations",
+      "title": "List search automations",
+      "description": "Scheduled property searches with their schedule, filters, and next/last run times.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_create_search_automation",
+      "title": "Create search automation",
+      "description": "Schedule a recurring property search. Every run uses 1 search credit, or 2 when it makes more than 3 ZHomes calls (several event types, tax/sale-history events, furnished-only or description-based filters). New matches can be saved to a list and enriched automatically (auto_enrich spends skip-trace credits on every run, so confirm with the user).\n\nExamples:\n  - \"every Monday 8am Central, Dallas rentals under $2k\" -> frequency=\"weekly\", day_of_week=1, run_time=\"08:00\", timezone=\"America/Chicago\", location=\"Dallas, TX\", max_amount=2000\n  - \"last Friday of each month\" -> frequency=\"monthly\", day_of_week=5, week_of_month=-1\n  - \"every morning, new pre-foreclosures and price drops in Houston, save to my Distress list\" -> frequency=\"daily\", run_time=\"07:00\", location=\"Houston, TX\", events=[\"preforeclosure\",\"price_drop\"], list_id=…\n\nAccepts the same advanced and event filters as spur_search_properties (min_amount / max_amount instead of min_price / max_price). Run the search once with spur_search_properties first so the user can check the results before scheduling.\n\nIn automations each event fires once, on the run that first sees it, so the same property isn't saved twice; change events start reporting from the second run. \"delisted\" is only available here.\n\nEvents (pass in `events`; a listing matches when ANY selected event fired, and is tagged with each):\n- Listing lifecycle: new_listing, coming_soon, coming_soon_active, price_drop, price_increase, pending, sold, back_on_market, delisted (automations only), open_house, rental_listed, rent_change, move_in_moved_up\n- Distress & motivation: preforeclosure, foreclosure, auction, bank_owned, distress_escalated, fsbo, agent_to_fsbo, stale_listing, new_construction\n- Valuation & tax: tax_assessment_posted, assessed_value_jump, tax_paid_dropped (weak), sale_recorded, zestimate_moved, equity_gap, price_below_assessed\nDirect events (price_drop, pending, sold, preforeclosure, fsbo, new_listing, …) work on the first search. Change events (price_increase, back_on_market, distress_escalated, agent_to_fsbo, rent_change, zestimate_moved, …) compare against what Spur saw on an earlier search of the same area, so the first search only records a baseline.\nMotivated-seller research usually combines price_drop, back_on_market, stale_listing, agent_to_fsbo and the distress stages.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "description": "Automation name shown in Spur"
+          },
+          "location": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 200,
+            "description": "City/state or ZIP, e.g. \"Dallas, TX\""
+          },
+          "frequency": {
+            "type": "string",
+            "enum": [
+              "daily",
+              "weekdays",
+              "weekly",
+              "biweekly",
+              "monthly"
+            ],
+            "description": "How often the search runs"
+          },
+          "run_time": {
+            "type": "string",
+            "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+            "description": "24h local time \"HH:MM\""
+          },
+          "timezone": {
+            "default": "UTC",
+            "description": "IANA time zone, e.g. \"America/Chicago\"",
+            "type": "string"
+          },
+          "day_of_week": {
+            "description": "0=Sunday … 6=Saturday; for weekly, biweekly, monthly",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6
+          },
+          "week_of_month": {
+            "description": "Monthly only; -1 = last",
+            "anyOf": [
+              {
+                "type": "number",
+                "const": 1
+              },
+              {
+                "type": "number",
+                "const": 2
+              },
+              {
+                "type": "number",
+                "const": 3
+              },
+              {
+                "type": "number",
+                "const": 4
+              },
+              {
+                "type": "number",
+                "const": -1
+              }
+            ]
+          },
+          "min_amount": {
+            "description": "Minimum price in USD (rent per month for forRent)",
+            "type": "number",
+            "minimum": 0
+          },
+          "max_amount": {
+            "description": "Maximum price in USD (rent per month for forRent)",
+            "type": "number",
+            "minimum": 0
+          },
+          "listing_status": {
+            "default": "forRent",
+            "description": "Which listings to search",
+            "type": "string",
+            "enum": [
+              "forRent",
+              "forSale",
+              "sold"
+            ]
+          },
+          "home_type": {
+            "description": "Zillow home type code",
+            "type": "string",
+            "enum": [
+              "singleFamily",
+              "condo,apartment",
+              "townhome",
+              "multiFamily",
+              "manufactured",
+              "land"
+            ]
+          },
+          "listing_type": {
+            "description": "Seller / listing kind; for catching NEW entries into a distress stage prefer events",
+            "type": "string",
+            "enum": [
+              "fsba",
+              "fsbo",
+              "newConstruction",
+              "foreclosure",
+              "preforeclosure",
+              "foreclosed",
+              "auction"
+            ]
+          },
+          "min_beds": {
+            "description": "Minimum bedrooms",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "max_beds": {
+            "description": "Maximum bedrooms",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "min_baths": {
+            "description": "Minimum bathrooms (half baths count as 0.5)",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "max_baths": {
+            "description": "Maximum bathrooms",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "min_sqft": {
+            "description": "Minimum living area in square feet",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "max_sqft": {
+            "description": "Maximum living area in square feet",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "min_lot_size": {
+            "description": "Square feet (1 acre = 43,560)",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "max_lot_size": {
+            "description": "Square feet",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "min_year_built": {
+            "description": "Built in or after this year",
+            "type": "integer",
+            "minimum": 1700,
+            "maximum": 2100
+          },
+          "max_year_built": {
+            "description": "Built in or before this year",
+            "type": "integer",
+            "minimum": 1700,
+            "maximum": 2100
+          },
+          "min_age": {
+            "description": "Years since built",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 400
+          },
+          "max_age": {
+            "description": "At most this many years since built",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 400
+          },
+          "days_posted": {
+            "description": "Only listings posted within this many days",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3650
+          },
+          "min_days_on_market": {
+            "description": "Listed at least this many days (higher suggests a motivated seller)",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "max_days_on_market": {
+            "description": "Listed at most this many days",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "keywords": {
+            "description": "Comma-separated listing keywords, e.g. \"pool, granite\"",
+            "type": "string",
+            "maxLength": 300
+          },
+          "has_pool": {
+            "description": "true = only listings with a pool",
+            "type": "boolean"
+          },
+          "has_garage": {
+            "description": "true = only listings with a garage",
+            "type": "boolean"
+          },
+          "has_view": {
+            "description": "true = only listings with any view (use views on live search for a specific kind)",
+            "type": "boolean"
+          },
+          "is_waterfront": {
+            "description": "true = only waterfront listings",
+            "type": "boolean"
+          },
+          "is_price_reduced": {
+            "description": "true = only listings whose asking price has been cut",
+            "type": "boolean"
+          },
+          "zip_list": {
+            "description": "Keep only these ZIPs; set location to the city that contains them",
+            "minItems": 1,
+            "maxItems": 50,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^\\d{5}$"
+            }
+          },
+          "neighborhoods": {
+            "description": "Neighborhood / area names matched against address and description",
+            "minItems": 1,
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            }
+          },
+          "center_lat": {
+            "description": "Radius search centre (with center_lng and radius_miles)",
+            "type": "number",
+            "minimum": -90,
+            "maximum": 90
+          },
+          "center_lng": {
+            "description": "Radius search centre longitude (with center_lat and radius_miles)",
+            "type": "number",
+            "minimum": -180,
+            "maximum": 180
+          },
+          "radius_miles": {
+            "description": "Keep only listings within this many miles of center_lat / center_lng",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 500
+          },
+          "min_zip": {
+            "description": "Lowest ZIP code in a numeric ZIP range (with max_zip); prefer zip_list for specific ZIPs",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99999
+          },
+          "max_zip": {
+            "description": "Highest ZIP code in a numeric ZIP range (with min_zip)",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99999
+          },
+          "only_absentee": {
+            "description": "Absentee-owned (owner mails elsewhere)",
+            "type": "boolean"
+          },
+          "only_vacant": {
+            "description": "Likely vacant (heuristic: description keywords + long days on market)",
+            "type": "boolean"
+          },
+          "only_pre_foreclosure": {
+            "description": "Distressed / pre-foreclosure (heuristic, includes description keywords)",
+            "type": "boolean"
+          },
+          "ownership_type": {
+            "description": "business = LLC / corp / trust owners (heuristic)",
+            "type": "string",
+            "enum": [
+              "individual",
+              "business",
+              "any"
+            ]
+          },
+          "min_equity": {
+            "description": "Estimated equity in USD (Zestimate or price minus assessed value; rough)",
+            "type": "number",
+            "minimum": 0
+          },
+          "min_ownership_years": {
+            "description": "Owner has held the property at least this long",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 150
+          },
+          "max_ownership_years": {
+            "description": "Owner has held the property at most this long",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 150
+          },
+          "events": {
+            "description": "Only listings where any of these events happened; see the tool description",
+            "minItems": 1,
+            "maxItems": 15,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "new_listing",
+                "coming_soon",
+                "coming_soon_active",
+                "price_drop",
+                "price_increase",
+                "pending",
+                "sold",
+                "back_on_market",
+                "delisted",
+                "open_house",
+                "rental_listed",
+                "rent_change",
+                "move_in_moved_up",
+                "preforeclosure",
+                "foreclosure",
+                "auction",
+                "bank_owned",
+                "distress_escalated",
+                "fsbo",
+                "agent_to_fsbo",
+                "stale_listing",
+                "new_construction",
+                "tax_assessment_posted",
+                "assessed_value_jump",
+                "tax_paid_dropped",
+                "sale_recorded",
+                "zestimate_moved",
+                "equity_gap",
+                "price_below_assessed"
+              ]
+            }
+          },
+          "event_within_days": {
+            "description": "Lookback window for events, in days (default 7)",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 365
+          },
+          "event_min_change_pct": {
+            "description": "Minimum % move for price / rent / Zestimate / assessment events",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "event_stale_days": {
+            "description": "Days on market that counts as stale (default 90)",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3650
+          },
+          "event_min_equity_gap_pct": {
+            "description": "Minimum % Zestimate above last sale price for equity_gap (default 30)",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "ai_query": {
+            "description": "Qualitative intent; each run re-ranks listings by description against it",
+            "type": "string",
+            "maxLength": 1500
+          },
+          "list_id": {
+            "description": "Save new matches into this property list",
+            "type": "string"
+          },
+          "auto_save": {
+            "default": true,
+            "description": "Save new matches to the user's properties",
+            "type": "boolean"
+          },
+          "auto_enrich": {
+            "default": false,
+            "description": "Skip-trace new matches on every run (spends enrichment credits)",
+            "type": "boolean"
+          },
+          "enabled": {
+            "default": true,
+            "description": "false = save it paused",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "location",
+          "frequency",
+          "run_time"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "spur_run_search_automation",
+      "title": "Run search automation now",
+      "description": "Run a search automation immediately instead of waiting for its schedule. Uses 1 search credit (2 if the run makes more than 3 ZHomes calls), and enrichment credits if auto_enrich is on.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "automation_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Automation id (UUID from a Spur list/search tool)"
+          }
+        },
+        "required": [
+          "automation_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "spur_get_automation_logs",
+      "title": "Automation run history",
+      "description": "Recent runs of a search automation: when, how many found/saved/enriched, and errors.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "automation_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Automation id (UUID from a Spur list/search tool)"
+          },
+          "limit": {
+            "default": 10,
+            "description": "Maximum runs to return",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          }
+        },
+        "required": [
+          "automation_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "search",
+      "title": "Search Spur",
+      "description": "Search the user's saved Spur properties, owners and postcard templates by keyword (address, city, owner name, phone, email, template name). Returns ids for the fetch tool. For live listings use spur_search_properties.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Keywords: address, city, owner name, phone, email or template name"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "fetch",
+      "title": "Fetch Spur record",
+      "description": "Fetch the full text of a record returned by search (ids look like property:…, owner:… or template:…).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 200,
+            "description": "Record id exactly as returned by search, e.g. property:<uuid>"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    }
+  ],
+  "version": "1.0.0"
+}
